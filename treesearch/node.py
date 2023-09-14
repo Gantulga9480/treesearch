@@ -1,12 +1,11 @@
-import numpy as np
-from typing import Tuple
+from typing import Tuple, List
 
 
 class Node:
 
     def __init__(self,
                  parent: 'Node',
-                 edge = None,
+                 edge=None,
                  value: float = 0,
                  is_leaf: bool = False) -> None:
 
@@ -18,7 +17,7 @@ class Node:
         self.visit_count = 0
         self.children = []
 
-    def addchildren(self, children: list['Node']):
+    def addchildren(self, children: List['Node']):
         if not isinstance(children, list):
             raise TypeError(f'Expected list, got {type(children)}')
         self.children.extend(children)

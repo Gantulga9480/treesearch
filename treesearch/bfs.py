@@ -30,7 +30,7 @@ class BredthFirstSearch(BaseTree):
             branch_score, branch_edges = node.unroll()
             scores.append(branch_score)
             edges.append(branch_edges)
-        if scores:
+        if edges:
             actions = edges[np.argmax(scores)]
             return actions, np.max(scores)
 
@@ -38,7 +38,7 @@ class BredthFirstSearch(BaseTree):
             branch_score, branch_edges = node.unroll()
             scores.append(branch_score)
             edges.append(branch_edges)
-        if scores:
+        if edges:
             actions = edges[np.argmax(scores)]
             return actions, np.max(scores)
         return None
