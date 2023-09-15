@@ -23,10 +23,13 @@ class BaseTree:
         self.queue.append(node)
 
     def search(self, root_node: Node):
+        "Includes algorithm specific search logic"
         raise NotImplementedError
 
     def select(self):
+        "Includes algorithm specific selection logic"
         raise NotImplementedError
 
     def expand(self, node: Node) -> bool:
+        "Includes algorithm specific expansion logic. End application should override this method"
         raise NotImplementedError
