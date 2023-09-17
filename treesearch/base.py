@@ -13,6 +13,12 @@ class BaseTree:
         self.queue.clear()
         self.leaf_nodes.clear()
 
+    def popright(self) -> Node:
+        try:
+            return self.queue.pop()
+        except IndexError:
+            return None
+
     def popleft(self) -> Node:
         try:
             return self.queue.popleft()

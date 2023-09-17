@@ -27,18 +27,18 @@ class BredthFirstSearch(BaseTree):
         edges = []
 
         for node in self.queue:
-            branch_score, branch_edges = node.unroll()
-            scores.append(branch_score)
+            branch_edges, branch_values = node.unroll()
             edges.append(branch_edges)
+            scores.append(branch_values)
         if edges:
-            actions = edges[np.argmax(scores)]
-            return actions, np.max(scores)
+            idx = np.argmax(np.sum(scores, axis=1))
+            return list(zip(edges[idx], scores[idx]))
 
         for node in self.leaf_nodes:
-            branch_score, branch_edges = node.unroll()
-            scores.append(branch_score)
+            branch_edges, branch_values = node.unroll()
             edges.append(branch_edges)
+            scores.append(branch_values)
         if edges:
-            actions = edges[np.argmax(scores)]
-            return actions, np.max(scores)
+            idx = np.argmax(np.sum(scores, axis=1))
+            return list(zip(edges[idx], scores[idx]))
         return None
