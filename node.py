@@ -1,15 +1,15 @@
-from typing import Tuple, List
+from typing import Tuple, List, Any
 
 
 class Node:
 
     def __init__(self,
-                 parent: 'Node',
-                 edge=None,
+                 parent: 'Node | None',
+                 edge: Any = None,
                  value: float = 0,
                  is_leaf: bool = False) -> None:
 
-        self.parent: Node = parent
+        self.parent = parent
         self.edge = edge
         self.is_leaf = is_leaf
         self.value = value
@@ -26,10 +26,10 @@ class Node:
             raise TypeError(f'Expected list, got {type(children)}')
         self.children.extend(children)
 
-    def unroll(self) -> Tuple[float, list]:
-        branch_values = [self.value]
-        branch_edges = [self.edge]
+    def unroll(self) -> Tuple[list[Any], list[float]]:
         parent = self.parent
+        branch_edges = [self.edge]
+        branch_values = [self.value]
         while parent is not None:  # loop until root node
             branch_values.append(parent.value)
             branch_edges.append(parent.edge)

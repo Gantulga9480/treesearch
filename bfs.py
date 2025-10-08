@@ -9,11 +9,15 @@ class BredthFirstSearch(BaseTree):
         super().__init__(max_depth)
 
     def search(self, root_node: Node):
+        self.reset()
         self.append(root_node)
         while True:
-            node: Node = self.popleft()
+            node = self.popleft()
             if node is not None:
-                if node.depth < self.max_depth:
+                if node.depth == self.max_depth:
+                    self.leaf_nodes.append(node)
+                    continue
+                else:
                     expanded = self.expand(node)
                     if not expanded:
                         self.leaf_nodes.append(node)

@@ -6,26 +6,26 @@ class BaseTree:
 
     def __init__(self, max_depth: int = 1) -> None:
         self.max_depth = max_depth
-        self.queue = deque()
-        self.leaf_nodes = deque()
+        self.queue: deque[Node] = deque()
+        self.leaf_nodes: deque[Node] = deque()
 
-    def reset(self):
+    def reset(self) -> None:
         self.queue.clear()
         self.leaf_nodes.clear()
 
-    def popright(self) -> Node:
+    def popright(self) -> Node | None:
         try:
             return self.queue.pop()
         except IndexError:
             return None
 
-    def popleft(self) -> Node:
+    def popleft(self) -> Node | None:
         try:
             return self.queue.popleft()
         except IndexError:
             return None
 
-    def append(self, node: Node):
+    def append(self, node: Node) -> None:
         self.queue.append(node)
 
     def search(self, root_node: Node):
