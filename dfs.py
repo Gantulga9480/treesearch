@@ -34,6 +34,7 @@ class DepthFirstSearch(BaseTree):
             edges.append(branch_edges)
             scores.append(branch_values)
         if edges:
-            idx = np.argmax(np.sum(scores, axis=1))
+            branch_sums = [sum(branch) for branch in scores]
+            idx = np.argmax(branch_sums)
             return list(zip(edges[idx], scores[idx]))
         return None
