@@ -1,6 +1,6 @@
+import numpy as np
 from .base import BaseTree
 from .node import Node
-import numpy as np
 
 
 class DepthFirstSearch(BaseTree):
@@ -18,23 +18,22 @@ class DepthFirstSearch(BaseTree):
                     self.leaf_nodes.append(node)
                     continue
                 else:
-                    if not self.expand(node):
+                    expanded = self.expand(node)
+                    if not expanded:
                         self.leaf_nodes.append(node)
-                        continue
+                    continue
             break
         return self.select()
 
     def select(self):
         scores = []
         edges = []
-        scores_sum = []
 
         for node in self.leaf_nodes:
             branch_edges, branch_values = node.unroll()
             edges.append(branch_edges)
             scores.append(branch_values)
-            scores_sum.append(sum(branch_values))
         if edges:
-            idx = np.argmax(scores_sum)
+            idx = np.argmax(np.sum(scores, axis=1))
             return list(zip(edges[idx], scores[idx]))
         return None

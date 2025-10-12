@@ -1,11 +1,8 @@
-from typing import Tuple, List, Any
-
-
 class Node:
 
     def __init__(self,
                  parent: 'Node | None',
-                 edge: Any = None,
+                 edge = None,
                  value: float = 0,
                  is_leaf: bool = False) -> None:
 
@@ -21,12 +18,12 @@ class Node:
     def has_child(self) -> bool:
         return self.children.__len__() > 0
 
-    def addchildren(self, children: List['Node']):
+    def addchildren(self, children: list['Node']):
         if not isinstance(children, list):
             raise TypeError(f'Expected list, got {type(children)}')
         self.children.extend(children)
 
-    def unroll(self) -> Tuple[list[Any], list[float]]:
+    def unroll(self):
         parent = self.parent
         branch_edges = [self.edge]
         branch_values = [self.value]

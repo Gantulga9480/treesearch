@@ -3,7 +3,7 @@ from .base import BaseTree
 from .node import Node
 
 
-class BredthFirstSearch(BaseTree):
+class BreadthFirstSearch(BaseTree):
 
     def __init__(self, max_depth: int = 1) -> None:
         super().__init__(max_depth)
@@ -22,21 +22,12 @@ class BredthFirstSearch(BaseTree):
                     if not expanded:
                         self.leaf_nodes.append(node)
                     continue
-                self.append(node)  # put back node to queue
             break
         return self.select()
 
     def select(self):
         scores = []
         edges = []
-
-        for node in self.queue:
-            branch_edges, branch_values = node.unroll()
-            edges.append(branch_edges)
-            scores.append(branch_values)
-        if edges:
-            idx = np.argmax(np.sum(scores, axis=1))
-            return list(zip(edges[idx], scores[idx]))
 
         for node in self.leaf_nodes:
             branch_edges, branch_values = node.unroll()
