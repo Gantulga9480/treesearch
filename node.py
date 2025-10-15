@@ -12,11 +12,16 @@ class Node:
         self.value = value
         self.depth = self.parent.depth + 1 if self.parent else 0
         self.visit_count = 0
-        self.children = []
+        self.children: list['Node'] = []
 
     @property
     def has_child(self) -> bool:
         return self.children.__len__() > 0
+
+    def addchild(self, child: 'Node'):
+        if not isinstance(child, 'Node'):
+            raise TypeError(f'Expected Node, got {type(children)}')
+        self.children.append(child)
 
     def addchildren(self, children: list['Node']):
         if not isinstance(children, list):

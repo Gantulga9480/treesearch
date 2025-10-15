@@ -4,28 +4,28 @@ from .node import Node
 
 class BaseTree:
 
-    def __init__(self, max_depth: int = 1) -> None:
+    def __init__(self, max_depth: int = 1):
         self.max_depth = max_depth
         self.queue: deque[Node] = deque()
         self.leaf_nodes: deque[Node] = deque()
 
-    def reset(self) -> None:
+    def reset(self):
         self.queue.clear()
         self.leaf_nodes.clear()
 
-    def popright(self) -> Node | None:
+    def popright(self):
         try:
             return self.queue.pop()
         except IndexError:
             return None
 
-    def popleft(self) -> Node | None:
+    def popleft(self):
         try:
             return self.queue.popleft()
         except IndexError:
             return None
 
-    def append(self, node: Node) -> None:
+    def append(self, node: Node):
         self.queue.append(node)
 
     def search(self, root_node: Node):
@@ -36,6 +36,6 @@ class BaseTree:
         "Includes algorithm specific selection logic"
         raise NotImplementedError
 
-    def expand(self, node: Node) -> bool:
+    def expand(self, node: Node):
         "Includes algorithm specific expansion logic. End application should override this method"
         raise NotImplementedError
