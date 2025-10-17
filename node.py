@@ -19,8 +19,8 @@ class Node:
         return self.children.__len__() > 0
 
     def addchild(self, child: 'Node'):
-        if not isinstance(child, 'Node'):
-            raise TypeError(f'Expected Node, got {type(children)}')
+        if not isinstance(child, Node):
+            raise TypeError(f'Expected Node, got {type(child)}')
         self.children.append(child)
 
     def addchildren(self, children: list['Node']):

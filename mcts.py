@@ -19,10 +19,12 @@ class MonteCarloSearch(BaseTree):
             while node.has_child:
                 node = max(node.children, key=lambda n: self.UCB1(n))
 
-            new_node = self.expand(node)
-            if new_node is not None:
-                node.addchild(new_node)
-                node = new_node
+            new_nodes = self.expand(node)
+            if new_nodes:
+                for n in new_nodes:
+                    n.depth = node.depth + 1
+                    node.addchild(n)
+                node = np.random.choice(new_nodes)
 
             value = self.simulate(node)
 
