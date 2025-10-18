@@ -1,6 +1,7 @@
-import numpy as np
 from .node import Node
 from .base import BaseTree
+import random
+import math
 
 
 class MonteCarloSearch(BaseTree):
@@ -24,7 +25,7 @@ class MonteCarloSearch(BaseTree):
                 for n in new_nodes:
                     n.depth = node.depth + 1
                     node.addchild(n)
-                node = np.random.choice(new_nodes)
+                node = random.choice(new_nodes)
 
             value = self.simulate(node)
 
@@ -32,7 +33,7 @@ class MonteCarloSearch(BaseTree):
 
         if root_node.has_child:
             edges, scores = max(root_node.children, key=lambda c: c.visit_count).unroll()
-            return edges[0], scores[0]
+            return edges, scores
         return None
 
     def backprob(self, node: Node | None, value: float):
@@ -43,5 +44,5 @@ class MonteCarloSearch(BaseTree):
 
     def UCB1(self, node: Node):
         if node.visit_count == 0 or node.parent is None:
-            return np.inf
-        return (node.value / node.visit_count + self.c * np.sqrt(np.log(node.parent.visit_count) / (node.visit_count)))
+            return float('inf')
+        return (node.value / node.visit_count + self.c * math.sqrt(math.log(node.parent.visit_count) / (node.visit_count)))

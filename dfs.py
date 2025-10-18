@@ -1,4 +1,3 @@
-import numpy as np
 from .base import BaseTree
 from .node import Node
 
@@ -26,15 +25,14 @@ class DepthFirstSearch(BaseTree):
         return self.select()
 
     def select(self):
-        scores = []
+        values = []
         edges = []
 
         for node in self.leaf_nodes:
             branch_edges, branch_values = node.unroll()
             edges.append(branch_edges)
-            scores.append(branch_values)
+            values.append(branch_values)
         if edges:
-            branch_sums = [sum(branch) for branch in scores]
-            idx = np.argmax(branch_sums)
-            return list(zip(edges[idx], scores[idx]))
+            best_idx, best_branch = max(enumerate(values), key=lambda iv: sum(iv[1]))
+            return list(zip(edges[best_idx], values[best_idx]))
         return None

@@ -29,15 +29,14 @@ class Node:
         self.children.extend(children)
 
     def unroll(self):
-        parent = self.parent
-        branch_edges = [self.edge]
-        branch_values = [self.value]
-        while parent is not None:  # loop until root node
-            branch_values.append(parent.value)
-            branch_edges.append(parent.edge)
-            parent = parent.parent
-        branch_edges.pop()  # remove root node edge (beacuse it's None)
-        branch_values.pop()  # # remove root node value (beacuse it's same to all nodes)
-        branch_edges.reverse()
-        branch_values.reverse()
-        return branch_edges, branch_values
+        edges = []
+        values = []
+        node = self
+        # collect from this node up to but not including the root
+        while node.parent is not None:
+            edges.append(node.edge)
+            values.append(node.value)
+            node = node.parent
+        edges.reverse()
+        values.reverse()
+        return edges, values
